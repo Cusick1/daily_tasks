@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#test
+
 mobileFlutter="nationwide_mobile_flutter"
 flutterUI="nationwide_flutter_ui"
 icons="nationwide_flutter_icons"
