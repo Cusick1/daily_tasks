@@ -12,14 +12,14 @@ function get_repo() {
 
   echo "So which is it today, front end, or back end? (F/B)"
   read fb_end
-  # if [[ $fb_end != "f" || $fb_end != "F" || $fb_end != "b" ||  $fb_end != "B" ]]; then
-  #   until [ $fb_end == "f" || $fb_end == "F" || $fb_end == "b" ||  $fb_end == "B" ]
-  #   do
-  #   echo "What was that? Let's try again."
-  #   echo "So which is it today, front end, or back end? (F/B)"
-  #   read fb_end
-  #   done
-  # fi
+  if [[ $fb_end != "f" && $fb_end != "F" && $fb_end != "b" &&  $fb_end != "B" ]]; then
+    until [ $fb_end == "f" ] || [ $fb_end == "F" ] || [ $fb_end == "b" ] || [ $fb_end == "B" ]
+    do
+    echo "What was that? Let's try again."
+    echo "So which is it today, front end, or back end? (F/B)"
+    read fb_end
+    done
+  fi
 
   if [[ $fb_end == "F" || $fb_end == "f" ]]; then
     echo "Awesome, front end it is!"
