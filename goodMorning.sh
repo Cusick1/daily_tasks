@@ -19,7 +19,6 @@ function virtual_device() {
     fi
 
     open /Applications/iTerm.app
-
     echo "Would you like to run the app via the command line? (yes/no)"
     read cmdLine
     if [[ $cmdLine == "no" ]]; then
@@ -120,16 +119,13 @@ function get_repo() {
     sleep 1
     echo "I'm sure this will be fun."
     sleep 1
-    echo "Uughh. Which repo we thinking?
+    echo "Uughhh.........."
+    echo "Which repo we thinking?
     1: $mx
     2: $claimAPI
     3: $model
-    "
-
-    
-    
+    "    
     read repo
-  # instead of setting value we could return the variable we have depending on what we wnat to do
     case $repo in
     1)
       repo_name=$mx
@@ -146,12 +142,10 @@ function get_repo() {
     idea .
     sleep 1
     open /Applications/iTerm.app
-
   fi
 }
 
 function main() {
-
   echo "Good morning Ryan! Let me open some things up for you."
   sleep 1
   get_repo
