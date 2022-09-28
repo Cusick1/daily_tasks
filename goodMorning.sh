@@ -57,7 +57,7 @@ function virtual_device() {
       open /Applications/Visual\ Studio\ Code.app
       #() allows it to run in subshell
       (flutter run)
-      echo "You disconected from the Simulator!"
+      echo "You disconnected from the Simulator!"
     fi
   else
     echo "Sounds good, everything should be up an running then!"
