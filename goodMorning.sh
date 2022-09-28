@@ -3,48 +3,52 @@
 # Figure out how to take input in case the user is ready to go.
 function virtual_device() {
   echo "Do you want me to run the app on a virtual device? (yes/no)"
-  read q1
+  read -r q1
   if [[ $q1 == "yes" ]]; then
-    # flutter emulators shows available emulators and we have grabbed the two emulator IDs and put them below
     echo "Would you like to use iOS(1) or android(2)? (1/2)"
-    read sim
+    read -r sim
+    while [ "$sim" != "1" ] && [ "$sim" != "2" ]; do
+      echo "Would you like to use iOS(1) or android(2)? (1/2)"
+      read -r sim
+    done
     if [[ $sim == 1 ]]; then
+      # flutter emulators shows available emulators and we have grabbed the emulator names and put them after launch
       flutter emulators --launch apple_ios_simulator
-    else
-      ps aux | grep -i emulator | grep -i Pixel_4a | wc -l | read test | if [ "$test" != "0" ]; then
-      echo "emulator is alread running" 
-      else 
+    elif [[ $sim == 2 ]]; then
+      response=$(ps aux | grep -i emulator | grep -i -c Pixel_4a)
+      if [ "$response" != "0" ]; then
+        echo "Your Android emulator is already running"
+      else
+        echo "I'll open up your Pixel 4a"
         flutter emulators --launch Pixel_4a
       fi
     fi
 
     open /Applications/iTerm.app
-    echo "Would you like to run the app via the command line? (yes/no)"
-    read cmdLine
+    read -r -p "Would you like to run the app via the command line? (yes/no): " cmdLine
     if [[ $cmdLine == "no" ]]; then
-    open /Applications/Visual\ Studio\ Code.app
-    # Run Application through VSCode using AppleScript to bring VSCode to an active position if not open and press F5.
+      open /Applications/Visual\ Studio\ Code.app
+      # Run Application through VSCode using AppleScript to bring VSCode to an active position if not open and press F5.
       osascript -e 'tell application "Visual Studio Code"
         activate
       end tell
       tell application "System Events"
         delay 3
         key code 96
-      end tell'  
+      end tell'
     else
       # Run Application through command line
       echo "Are you ready to run the app? (yes/no)"
-      read answer
-      if [[ $answer != "yes" ]]; then 
-        until [ $answer == "yes" ]
-        do
-        echo "Are you ready yet? (yes/no)"
-        read answer
+      read -r answer
+      if [[ $answer != "yes" ]]; then
+        until [ "$answer" == "yes" ]; do
+          echo "Are you ready yet? (yes/no)"
+          read -r answer
         done
       fi
       echo "Alright go grab yourself some coffee while I get this up and running!"
       sleep 2
-      if [[ sim == "1" ]]; then
+      if [[ $sim == "1" ]]; then
         open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
       else
         osascript -e 'tell application "System Events"
@@ -61,8 +65,8 @@ function virtual_device() {
       echo "You disconected from the Simulator!"
     fi
   else
-     echo "Sounds good"
-     sleep 1
+    echo "Sounds good"
+    sleep 1
   fi
 }
 
@@ -75,13 +79,12 @@ function get_repo() {
   model="nw-model"
 
   echo "So which is it today, front end, or back end? (F/B)"
-  read fb_end
-    if [[ $fb_end != "f" && $fb_end != "F" && $fb_end != "b" &&  $fb_end != "B" ]]; then
-    until [ $fb_end == "f" ] || [ $fb_end == "F" ] || [ $fb_end == "b" ] || [ $fb_end == "B" ]
-    do
-    echo "What was that? Let's try again."
-    echo "So which is it today, front end, or back end? (F/B)"
-    read fb_end
+  read -r fb_end
+  if [[ $fb_end != "f" && $fb_end != "F" && $fb_end != "b" && $fb_end != "B" ]]; then
+    until [ "$fb_end" == "f" ] || [ "$fb_end" == "F" ] || [ "$fb_end" == "b" ] || [ "$fb_end" == "B" ]; do
+      echo "What was that? Let's try again."
+      echo "So which is it today, front end, or back end? (F/B)"
+      read -r fb_end
     done
   fi
 
@@ -93,8 +96,8 @@ function get_repo() {
     2: $flutterUI
     3: $icons
     "
-    read repo
-    
+    read -r repo
+
     case $repo in
     1)
       repo_name=$mobileFlutter
@@ -124,8 +127,8 @@ function get_repo() {
     1: $mx
     2: $claimAPI
     3: $model
-    "    
-    read repo
+    "
+    read -r repo
     case $repo in
     1)
       repo_name=$mx
@@ -152,7 +155,3 @@ function main() {
 }
 
 main
-
-
-
-
