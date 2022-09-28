@@ -141,6 +141,46 @@ function get_repo() {
   fi
 }
 
+function welcome_big_fail() {
+  echo "
+              _,,,_
+            .'     \`'.
+           /     ____ \      Dang enter key keeps moving...
+           |  .-'_  _\/    /
+           \_/   a  a|    /
+           (,\`     \ |         .----.
+            |     -' |        /|     '--.
+             \   '=  /        ||    ]|   \`-.
+             /\`-.__.'         ||    ]|    ::|
+          .-'\`-.__ \__        ||    ]|    ::|
+         /        \`\`  \`.      ||    ]|    ::|
+       _ |     \     \  \     \|    ]|   .-'
+      / \|      \    |   \     L.__  .--'(
+     |   |\      \`.  |    \  ,---|_      \-----------,
+     |   | '.      './\    \/ .--._|=-    |_        /|
+     |   \   '.     \`'.'. /\`\/ .-'          '.     / |
+     |   |     \`'.     \`;-:-;\`)|             |-._ /  |
+     |   /_       \`'--./_  \` )/'-------------')  /)  |
+     \   | \`\"\"\"\"----\"\`\\//\`\"\"\`/,===..'\`\`\`\`\`\`\`\`\`\`\`/ (  |
+      |  |            / \`---\` \`==='            /   ) |
+      /  \           /                        /   (  |
+     |    '------.  |'----------------------'|     ) |
+      \           \`-|                        |    /  |
+       \`--...,______|                        |   (   |
+              | |   |.  . __ .  . __ .-. ,---|    )  |
+              | |   ||\ ||  ||\/||__||  |{__.|    \  |
+              | |   || \||__||  ||  ||__|__,}|    (  |
+              | |   |                        |    ) ,|
+              | |   |                        |   ( /||
+              | |   |                        |   )/ \`\"
+             /   \  |                        |  (/
+           .' /I\ '.|                        |  /)
+        .-'_.'/ \'. |                        | /
+        \`\`\`  \`\"\"\"\` \`| .---------------------.||
+                    \`\"\`                     \`\"\`
+  "
+}
+
 function welcome_failed() {
   echo "
              ____________________________________________________
@@ -176,10 +216,40 @@ function welcome_failed() {
 "
 
   read -n 1 -s -r get_started
-  if [[ $get_started == '' ]]; then
-    return
+  if [[ $get_started != '' ]]; then
+    declare -i index=0
+    until [ "$get_started" == '' ]; do
+      if [[ $index -gt 0 ]]; then
+        index=$index+1
+        clear_screen
+        welcome_big_fail
+        if [[ $index -gt 2 ]]; then
+          echo "You good?"
+          sleep 1
+          echo "Nevermind... I'll talk to you later"
+          sleep 1
+          echo "Disconected."
+          exit 1
+        else
+          echo "This you? ^
+        "
+          sleep 2
+          read -n 1 -s -r -p "Maybe try the enter key my dude: " get_started
+        fi
+      else
+        index=$index+1
+        echo "Loading..."
+        sleep 1
+        echo "Loading..."
+        sleep 1
+        echo "Loading..."
+        sleep 1
+        read -n 1 -s -r -p "Not quite. Try pressing the enter key. 
+" get_started
+      fi
+    done
   else
-    welcome_failed
+    return
   fi
 }
 
