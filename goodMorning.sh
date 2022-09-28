@@ -2,14 +2,11 @@
 
 # Figure out how to take input in case the user is ready to go.
 function virtual_device() {
-  echo "Do you want me to run the app on a virtual device? (yes/no)"
-  read -r q1
+  read -r -p "Do you want me to run the app on a virtual device? (yes/no): " q1
   if [[ $q1 == "yes" ]]; then
-    echo "Would you like to use iOS(1) or android(2)? (1/2)"
-    read -r sim
+    read -r -p "Would you like to use iOS(1) or android(2)? (1/2): " sim
     while [ "$sim" != "1" ] && [ "$sim" != "2" ]; do
-      echo "Would you like to use iOS(1) or android(2)? (1/2)"
-      read -r sim
+      read -r -p "Would you like to use iOS(1) or android(2)? (1/2): " sim
     done
     if [[ $sim == 1 ]]; then
       # flutter emulators shows available emulators and we have grabbed the emulator names and put them after launch
@@ -38,12 +35,10 @@ function virtual_device() {
       end tell'
     else
       # Run Application through command line
-      echo "Are you ready to run the app? (yes/no)"
-      read -r answer
+      read -r -p "Are you ready to run the app? (yes/no): " answer
       if [[ $answer != "yes" ]]; then
         until [ "$answer" == "yes" ]; do
-          echo "Are you ready yet? (yes/no)"
-          read -r answer
+          read -r -p "Are you ready yet? (yes/no): " answer
         done
       fi
       echo "Alright go grab yourself some coffee while I get this up and running!"
@@ -78,13 +73,11 @@ function get_repo() {
   mx="mobilex"
   model="nw-model"
 
-  echo "So which is it today, front end, or back end? (F/B)"
-  read -r fb_end
+  read -r -p "So which is it today, front end, or back end? (F/B): " fb_end
   if [[ $fb_end != "f" && $fb_end != "F" && $fb_end != "b" && $fb_end != "B" ]]; then
     until [ "$fb_end" == "f" ] || [ "$fb_end" == "F" ] || [ "$fb_end" == "b" ] || [ "$fb_end" == "B" ]; do
       echo "What was that? Let's try again."
-      echo "So which is it today, front end, or back end? (F/B)"
-      read -r fb_end
+      read -r -p "So which is it today, front end, or back end? (F/B): " fb_end
     done
   fi
 
