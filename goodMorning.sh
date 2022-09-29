@@ -1,5 +1,20 @@
 #!/bin/bash
 
+function coffee_time() {
+  echo "
+                                                                         )  (
+                                                                        (   ) ) 
+                                                                         ) ( ( 
+                                                                       _______)_
+                                                                    .-'---------|
+                                                                   ( C|/\/\/\/\/|
+                                                                    '-./\/\/\/\/|
+                                                                      '_________'
+                                                                       '-------'
+Alright go grab yourself some coffee while I get this up and running!
+        "
+}
+
 # Figure out how to take input in case the user is ready to go.
 function virtual_device() {
   read -r -p "Do you want me to run the app on a virtual device? (yes/no): " q1
@@ -33,6 +48,9 @@ function virtual_device() {
         delay 3
         key code 96
       end tell'
+      open /Applications/iTerm.app
+      coffee_time
+      sleep 2
     else
       # Run Application through command line
       read -r -p "Are you ready to run the app? (yes/no): " answer
@@ -41,7 +59,7 @@ function virtual_device() {
           read -r -p "Are you ready yet? (yes/no): " answer
         done
       fi
-      echo "Alright go grab yourself some coffee while I get this up and running!"
+      coffee_time
       sleep 2
       if [[ $sim == "1" ]]; then
         open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
@@ -51,7 +69,6 @@ function virtual_device() {
             perform action "AXPress"
           end tell
         end tell'
-
         # source ~/Learning/Bash/showEmulator.sh
       fi
       open /Applications/Visual\ Studio\ Code.app
@@ -187,15 +204,15 @@ function welcome_failed() {
             /                                                    \\
            |    _____________________________________________     |
            |   |                                             |    |           
-           |   |             ___          ___                |    |
-           |   |            /   \\        /   \\               |    |
+           |   |             ___  \    /  ___                |    |
+           |   |            /   \        /   \               |    |
            |   |           |     |      |     |              |    |
            |   |           | [ ] |      | [ ] |              |    |
-           |   |           \\_____/      \\_____/              |    |
+           |   |           \_____/      \_____/              |    |
            |   |                                             |    |
-           |   |                ____________                 |    |
-           |   |               /            \\                |    |
-           |   |               \\____________/                |    |
+           |   |               @@@@@@@@@@@@                  |    |
+           |   |              @@          @@                 |    |
+           |   |             @@            @@                |    |
            |   |                                             |    |
            |   |---------------------------------------------|    |
            |   |  That wasn't quite the enter key.           |    |
@@ -213,6 +230,12 @@ function welcome_failed() {
  _-'.-.-.-.-.-. .---.-. .-----------------------------. .-.---. .---.-.-.-.\`-_
 :-----------------------------------------------------------------------------:
 \`---._.-----------------------------------------------------------------._.---'
+           ___   _     __     __    __     ____     _____     _______           
+          |   \ | |  / __ \  |  \  /  |  /  __  \  |  __  \  /  _____)          
+          | |\ \| | | |  | | |   \/   | |  |  |  | | |  \  | \  (____           
+          | | \   | | |  | | |  |\/|  | |  |__|  | | |   | |  \___   \          
+          | |  \  | | |__| | |  |  |  | |  |  |  | | |__/  |  ____)  /          
+          |_|   \_|  \ __ /  |__|  |__| |__|  |__| |_____ /  (______/ 
 "
 
   read -n 1 -s -r get_started
@@ -260,14 +283,14 @@ function welcome() {
            |    _____________________________________________     |
            |   |                                             |    |           
            |   |             ___          ___                |    |
-           |   |            /   \\        /   \\               |    |
+           |   |            /   \        /   \               |    |
            |   |           |     |      |     |              |    |
            |   |           | [ ] |      | [ ] |              |    |
-           |   |           \\_____/      \\_____/              |    |
+           |   |           \_____/      \_____/              |    |
            |   |                                             |    |
-           |   |                ____________                 |    |
-           |   |               /            \\                |    |
-           |   |               \\____________/                |    |
+           |   |             @@            @@                |    |
+           |   |              @@          @@                 |    |
+           |   |               @@@@@@@@@@@@                  |    |
            |   |                                             |    |
            |   |---------------------------------------------|    |
            |   |  Welcome Ryan. Good morning!                |    |
@@ -285,6 +308,12 @@ function welcome() {
  _-'.-.-.-.-.-. .---.-. .-----------------------------. .-.---. .---.-.-.-.\`-_
 :-----------------------------------------------------------------------------:
 \`---._.-----------------------------------------------------------------._.---'
+           ___   _     __     __    __     ____     _____     _______           
+          |   \ | |  / __ \  |  \  /  |  /  __  \  |  __  \  /  _____)          
+          | |\ \| | | |  | | |   \/   | |  |  |  | | |  \  | \  (____           
+          | | \   | | |  | | |  |\/|  | |  |__|  | | |   | |  \___   \          
+          | |  \  | | |__| | |  |  |  | |  |  |  | | |__/  |  ____)  /          
+          |_|   \_|  \ __ /  |__|  |__| |__|  |__| |_____ /  (______/           
 "
   read -n 1 -s -r get_started
   if [[ $get_started == '' ]]; then
