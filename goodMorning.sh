@@ -2,17 +2,20 @@
 
 function coffee_time() {
   echo "
-                                                                         )  (
-                                                                        (   ) ) 
-                                                                         ) ( ( 
-                                                                       _______)_
-                                                                    .-'---------|
-                                                                   ( C|/\/\/\/\/|
-                                                                    '-./\/\/\/\/|
-                                                                      '_________'
-                                                                       '-------'
+                                                                          )  (
+                                                                         (  )  )
+                                                                          ) ( ( 
+     ____       __     ________   ________   ________    ________       _______)_ 
+   /  ____\   / __ \  |  ______| |  ______| |  ______|  |  ______|   .-'---------|
+  |  /       | |  | | |  |____   |  |____   |  |____    |  |____    ( C|/\/\/\/\/|
+  | |        | |  | | |  _____|  |  _____|  |  _____|   |  _____|    '-./\/\/\/\/|
+  |  \_____  | |__| | |  |       |  |       |  |_____   |  |_____      '_________'
+   \ ____ /   \ __ /  |__|       |__|       |________|  |________|      '-------'
+                                                   
 Alright go grab yourself some coffee while I get this up and running!
         "
+  sleep 1
+  echo "Disconected."
 }
 
 # Figure out how to take input in case the user is ready to go.
@@ -33,6 +36,15 @@ function virtual_device() {
       else
         echo "I'll open up your Pixel 4a"
         flutter emulators --launch Pixel_4a
+        open /Applications/iTerm.app
+        echo "Press enter when your emulator is up and running"
+        read -n 1 -s -r up_and_running
+        if [[ $up_and_running != '' ]]; then
+          while [ "$up_and_running" != '' ]; do
+            echo "Let's try that again. Press enter when your emulator is ready to run the application."
+            read -n 1 -s -r up_and_running
+          done
+        fi
       fi
     fi
 
@@ -48,7 +60,9 @@ function virtual_device() {
         delay 3
         key code 96
       end tell'
+      sleep 2
       open /Applications/iTerm.app
+      sleep 1
       coffee_time
       sleep 2
     else
@@ -69,7 +83,6 @@ function virtual_device() {
             perform action "AXPress"
           end tell
         end tell'
-        # source ~/Learning/Bash/showEmulator.sh
       fi
       open /Applications/Visual\ Studio\ Code.app
       #() allows it to run in subshell
@@ -122,7 +135,7 @@ function get_repo() {
 
     cd ~/Code/Github/development/$repo_name
     code -n .
-    sleep 1
+    sleep 3
     open /Applications/iTerm.app
 
     virtual_device
